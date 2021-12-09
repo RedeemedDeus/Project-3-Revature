@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka-client.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka-client-build.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka-client-build.iml" />
+    </modules>
+  </component>
+</project>
