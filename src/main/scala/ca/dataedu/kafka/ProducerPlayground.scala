@@ -55,7 +55,7 @@ object ProducerPlayground extends App{
     val rand_time_pass = r.nextInt(50000)
     now = now.plusSeconds(rand_time_pass)
 
-    //order_id, customer_id, customer_name, product_id, product_name, product_category, payment_type, qty, price, datetime, country, city, ecommerce_website_name, payment_txn_id, payment_txn_success, failure_reason
+//    order_id, customer_id, customer_name, product_id, product_name, product_category, payment_type, qty, price, datetime, country, city, ecommerce_website_name, payment_txn_id, payment_txn_success, failure_reason
     //    val transaction = List(i, 101 + rand_customer, customer_names(rand_customer), 10001 + rand_product, product_names(rand_product), product_categories(rand_product), rand_payment, rand_quantity, product_prices(rand_product), now, customer_countries(rand_customer), customer_cities(rand_customer), "AllTheSpaceYouNeed.com", rand_txn_id, rand_success, rand_reason).mkString(",")
     val transaction = i + 101 + rand_customer + customer_names(rand_customer) + 10001 + rand_product + product_names(rand_product) + product_categories(rand_product) + rand_payment + rand_quantity + product_prices(rand_product) + now + customer_countries(rand_customer)  + customer_cities(rand_customer) + "AllTheSpaceYouNeed.com" + rand_txn_id + rand_success + rand_reason + ","
 
