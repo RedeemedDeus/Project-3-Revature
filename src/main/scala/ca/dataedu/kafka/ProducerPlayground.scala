@@ -5,13 +5,14 @@ import java.util.Properties
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 import org.apache.kafka.common.serialization.{IntegerSerializer, StringSerializer}
 
+
 object ProducerPlayground extends App{
 
   val topicName = "sql_dolphins"
 
   val producerProperties = new Properties()
   producerProperties.setProperty(
-    ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "25.58.43.190:9092"
+    ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092" //25.58.43.190
   )
   producerProperties.setProperty(
     ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[IntegerSerializer].getName
@@ -22,14 +23,14 @@ object ProducerPlayground extends App{
 
   val producer = new KafkaProducer[Int, String](producerProperties)
 
-  //DATA GENERATOR THAT SENDS DATA AS A PRODUCER TO THE CONSUMER
+  //DATA TO CREATE ENTRIES
   val customer_names = List("SpaceX", "Blue Origin", "Orbital Sciences Corporation", "Boeing", "Northrop Grumman Innovation Systems", "Sierra Nevada Corporation", "Scaled Composites", "The Spaceship Company", "NASA", "Lockheed Martin", "ESA", "JAXA", "Rocket Lab", "Virgin Galactic", "Copenhagen Suborbitals", "ROSCOSMOS", "CNSA")
   val customer_countries = List("United States", "United States", "United States", "United States", "United States", "United States", "United States", "United States", "United States", "United States", "France", "Japan", "New Zealand", "England", "Denmark", "Russia", "China")
   val customer_cities = List("Hawthorne CA", "Kent WA", "Dulles VA", "Chicago IL", "Dulles VA", "Sparks NV", "Mojave CA", "Mojave CA", "Washington DC", "Bethesda MD", "Paris", "Tokyo", "Auckland", "London", "Copenhagen", "Moscow", "Beijing")
 
   val product_names = List("Dragon Capsule", "Falcon 9 Rocket", "Dream Chaser Cargo System", "Biconic Farrier", "Second-stage Fuselage", "Life Support Systems", "Reaction Wheels", "Air Jordans", "Geosynchronous Satellite", "Docking Ports (x3)", "Space Junk")
   val product_categories = List("Rocket", "Rocket", "System", "Part", "Part", "System", "Part", "Misc.", "Satellite", "Part", "Misc.")
-  val product_prices = List("$100,000", "$10,000,000", "$1,000,000", "$1000", "$10,000", "$10,000", "$100", "Priceless", "$1,000,000", "$1000", "$0")
+  val product_prices = List("100000", "10000000", "1000000", "1000", "10000", "10000", "100", "Priceless", "1000000", "1000", "0")
 
   val payment_types = List("Mastercard", "Discover", "Capital One", "Zelle Transfer", "UPI", "Google Wallet", "Apple Pay")
 
@@ -42,7 +43,8 @@ object ProducerPlayground extends App{
   //  val printWriter = new PrintWriter(file)
   //  file.delete()
 
-  for(i <- 1 to 5){
+  //DATA GENERATOR AND MESSAGE PUSHER
+  for(i <- 1 to 100){
     val rand_customer = r.nextInt(customer_names.length)
     val rand_product = r.nextInt(product_names.length)
     val rand_payment = payment_types(r.nextInt(payment_types.length))
@@ -58,7 +60,7 @@ object ProducerPlayground extends App{
     val transaction = i + 101 + rand_customer + customer_names(rand_customer) + 10001 + rand_product + product_names(rand_product) + product_categories(rand_product) + rand_payment + rand_quantity + product_prices(rand_product) + now + customer_countries(rand_customer)  + customer_cities(rand_customer) + "AllTheSpaceYouNeed.com" + rand_txn_id + rand_success + rand_reason + ","
 
 
-
+    //SENDS A MESSAGE TO THE TOPIC
     producer.send(new ProducerRecord[Int, String](topicName, i, transaction))
 
     //println(transaction)
