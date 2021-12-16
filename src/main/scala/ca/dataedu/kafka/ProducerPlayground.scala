@@ -9,28 +9,28 @@ import org.apache.kafka.common.serialization.{IntegerSerializer, StringSerialize
 
 object ProducerPlayground extends App{
   def chooseRandomItem[B](list: List[(B, Int)])(rand: Int): B = {
-		list
-			.scanLeft(list(1)._1, rand)((remainder, item) => item match { case (item, weight) => (item, remainder._2 - weight) })
-			.drop(1)
-			.filter(item => item match { case (item, weight) => weight <= 0 })
-			.head
-			._1
-	}
+    list
+      .scanLeft(list(1)._1, rand)((remainder, item) => item match { case (item, weight) => (item, remainder._2 - weight) })
+      .drop(1)
+      .filter(item => item match { case (item, weight) => weight <= 0 })
+      .head
+      ._1
+  }
 
-	def giveItemWeight[B](item: B)(weight: Int): (B, Int) = {
-		return (item, weight)
-	}
+  def giveItemWeight[B](item: B)(weight: Int): (B, Int) = {
+    return (item, weight)
+  }
 
-	def defaultWeighted[B](item: B): (B, Int) = {
-		return giveItemWeight(item)(1)
-	}
+  def defaultWeighted[B](item: B): (B, Int) = {
+    return giveItemWeight(item)(1)
+  }
 
-	def registerWeightedItem[B](list_buffer: ListBuffer[(B, Int)])(item: B, weight: Int) = {
-		list_buffer.append(giveItemWeight(item)(weight))
-	}
+  def registerWeightedItem[B](list_buffer: ListBuffer[(B, Int)])(item: B, weight: Int) = {
+    list_buffer.append(giveItemWeight(item)(weight))
+  }
 
   case class Customer(id: Int, name: String, country: String, city: String)
-	case class Product(id: Int, name: String, category: String, price: String)
+  case class Product(id: Int, name: String, category: String, price: String)
 
   val topicName = "sql_dolphins"
 
